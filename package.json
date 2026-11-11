@@ -1,0 +1,98 @@
+{
+  "name": "navi-pet",
+  "displayName": "Navi",
+  "description": "Uma fadinha de pixel art que voa no Explorer como um pet e reage ao seu código.",
+  "version": "1.0.0",
+  "publisher": "guscfer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GusCfer/navi-fairy-vscode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GusCfer/navi-fairy-vscode/issues"
+  },
+  "homepage": "https://github.com/GusCfer/navi-fairy-vscode#readme",
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "type": "webview",
+          "id": "fadaPet.view",
+          "name": "Navi"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "fadaPet.chamar",
+        "title": "Navi: Chamar a fada"
+      },
+      {
+        "command": "fadaPet.trocarCor",
+        "title": "Navi: Trocar cor"
+      }
+    ],
+    "configuration": {
+      "title": "Navi",
+      "properties": {
+        "fadaPet.cor": {
+          "type": "string",
+          "enum": [
+            "azul",
+            "verde",
+            "rosa",
+            "amarela",
+            "roxa"
+          ],
+          "default": "azul",
+          "description": "Cor do brilho da fada."
+        },
+        "fadaPet.tamanho": {
+          "type": "number",
+          "enum": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "default": 3,
+          "description": "Tamanho de cada pixel (escala do pixel art)."
+        },
+        "fadaPet.frase": {
+          "type": "string",
+          "default": "Ei! Escuta aqui!",
+          "description": "O que a fada fala quando você clica nela e de tempo em tempo."
+        },
+        "fadaPet.reagirErros": {
+          "type": "boolean",
+          "default": true,
+          "description": "A fada avisa quando o arquivo aberto tem erros."
+        },
+        "fadaPet.dicas": {
+          "type": "boolean",
+          "default": true,
+          "description": "A fada fala umas frases aleatórias de vez em quando."
+        }
+      }
+    }
+  },
+  "icon": "icon.png",
+  "keywords": [
+    "pet",
+    "fairy",
+    "fada",
+    "pixel art",
+    "companion"
+  ]
+}
