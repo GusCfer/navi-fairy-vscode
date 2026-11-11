@@ -25,6 +25,20 @@
 
 ## 📦 Instalação
 
+### Pela loja do VS Code (recomendado)
+
+1. Abra a aba **Extensões** no VS Code (`Ctrl+Shift+X`)
+2. Busque por **Navi Fairy Pet**
+3. Clique em **Instalar**
+
+Ou instale direto pelo [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=guscfer.navi-pet), ou pela linha de comando:
+
+```bash
+code --install-extension guscfer.navi-pet
+```
+
+### Manualmente
+
 Baixe o `.vsix` em [Releases](https://github.com/GusCfer/navi-fairy-vscode/releases) ou gere a partir do código:
 
 ```bash
