@@ -2,7 +2,7 @@
   "name": "navi-pet",
   "displayName": "Navi Fairy Pet",
   "description": "Uma fadinha de pixel art que voa no Explorer como um pet e reage ao seu código.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "guscfer",
   "license": "MIT",
   "repository": {

@@ -8,9 +8,7 @@
   Uma fadinha de pixel art que vive no <b>Explorer</b> do VS Code, logo abaixo dos seus arquivos, e reage ao seu código.
 </p>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/GusCfer/navi-fairy-vscode/main/docs/navi.gif" alt="Navi voando, falando e reagindo a um erro" width="440">
-</p>
+![Navi voando, falando e reagindo a um erro](https://raw.githubusercontent.com/GusCfer/navi-fairy-vscode/main/docs/navi.gif)
 
 ## ✨ O que ela faz
 
