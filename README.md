@@ -5,39 +5,40 @@
 <h1 align="center">Navi</h1>
 
 <p align="center">
-  Uma fadinha de pixel art que vive no <b>Explorer</b> do VS Code, logo abaixo dos seus arquivos, e reage ao seu código.
+  A little pixel-art fairy that lives in the VS Code <b>Explorer</b>, right below your files. She interacts with you, and reacts to changes you make to your code in real time.
 </p>
 
-![Navi voando, falando e reagindo a um erro](https://raw.githubusercontent.com/GusCfer/navi-fairy-vscode/main/docs/navi.gif)
+![Demo: Navi flying, talking, and reacting to an error](https://raw.githubusercontent.com/GusCfer/navi-fairy-vscode/main/docs/navi.gif)
 
-## ✨ O que ela faz
+## What Navi Does
 
 | | |
 |---|---|
-| 🧚 **Voa por aí** | Passeia pelo painel com asas batendo, brilho pulsante e um rastro de faíscas |
-| 🖱️ **Interage com o mouse** | Orbita o cursor; clique nela pra ouvir o que ela tem a dizer; clique em outro lugar e ela voa até lá |
-| 💾 **Comemora quando você salva** | Dá uma voltinha e avisa que o arquivo foi salvo |
-| ⚠️ **Avisa sobre erros no arquivo** | Fica laranja quando o arquivo aberto tem erros e comemora quando você corrige |
-| 🔴 **Reage a erros de execução** | Fica vermelha e balança quando um comando no terminal, uma task ou o debug termina com erro |
-| 💤 **Dorme** | Depois de 2 minutos sem atividade ela pousa e dorme. Digite ou clique para acordá-la |
+| **Flies around** | Wanders around the panel with flapping wings, a pulsing glow and a trail of sparkles |
+| **Interacts with the mouse** | Orbits your cursor; click on her to hear what she has to say; click elsewhere and she flies over to it |
+| **Celebrates when you save** | Does a little spin and lets you know the file has been saved successfully |
+| **Warns about errors in the file** | Turns orange when the open file has errors and celebrates when you fix them |
+| **Reacts to runtime errors** | Turns red and moves around rapidly when a terminal command, task or debug session ends with an error |
+| **Sleeps** | After 2 minutes of inactivity, she lands and goes to sleep. Type or click to wake her up |
 
-## 📦 Instalação
+## Installation - Portuguese Version
+#### Installation for the English version is not yet available
 
-### Pela loja do VS Code (recomendado)
+### Via the VS Code Marketplace (currently globally disabled)
 
-1. Abra a aba **Extensões** no VS Code (`Ctrl+Shift+X`)
-2. Busque por **Navi Fairy Pet**
-3. Clique em **Instalar**
+1. Open the **Extensions** tab in VS Code (`Ctrl + Shift + X`)
+2. Search for **Navi Fairy Pet**
+3. Click **Install**
 
-Ou instale direto pelo [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=guscfer.navi-pet), ou pela linha de comando:
+Or, install it directly from the Visual Studio Marketplace [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=guscfer.navi-pet), or via the command line:
 
 ```bash
 code --install-extension guscfer.navi-pet
 ```
 
-### Manualmente
+### Manual Installation
 
-Baixe o `.vsix` em [Releases](https://github.com/GusCfer/navi-fairy-vscode/releases) ou gere a partir do código:
+Download the `.vsix` from [Releases](https://github.com/GusCfer/navi-fairy-vscode/releases) or directly clone the source code:
 
 ```bash
 git clone https://github.com/GusCfer/navi-fairy-vscode.git
@@ -46,33 +47,33 @@ npx @vscode/vsce package
 code --install-extension navi-pet-*.vsix
 ```
 
-Depois, abra o **Explorer** e expanda a seção **Navi**.
+Next, open **Explorer** and expand the **Navi** section.
 
-## ⌨️ Comandos
+## Commands
 
-| Comando | O que faz |
+| Command | What it does |
 |---|---|
-| `Navi: Chamar a fada` | Abre o painel e a fada dá um oi |
-| `Navi: Trocar cor` | Escolhe a cor do brilho |
+| `Navi: Call the fairy` | Opens the panel and the fairy says hello |
+| `Navi: Change color` | Selects the color of the glow |
 
-## ⚙️ Configurações
+## Settings
 
-| Configuração | Padrão | Descrição |
+| Setting | Default | Description |
 |---|---|---|
-| `fadaPet.cor` | `azul` | Cor do brilho: `azul`, `verde`, `rosa`, `amarela`, `roxa` |
-| `fadaPet.tamanho` | `3` | Escala do pixel art (2 a 5) |
-| `fadaPet.frase` | `Ei! Escuta aqui!` | O que ela fala quando você clica e de tempo em tempo |
-| `fadaPet.reagirErros` | `true` | Avisa quando o arquivo aberto tem erros |
-| `fadaPet.dicas` | `true` | Fala sozinha de vez em quando |
+| `fadaPet.cor` | `azul` | Glow color: `azul`, `verde`, `rosa`, `amarela`, `roxa` |
+| `fadaPet.tamanho` | `3` | Pixel art scale (2 to 5) |
+| `fadaPet.frase` | `Hey! Listen!` | What it says when clicked or periodically |
+| `fadaPet.reagirErros` | `true` | Alerts you when the open file contains errors |
+| `fadaPet.dicas` | `true` | Speaks spontaneously from time to time |
 
-## 🔍 Detecção de erros de execução
+## Detection of runtime errors
 
-- **Terminal integrado:** comandos que terminam com código de saída diferente de 0 (requer o *shell integration* do VS Code, ativo por padrão em bash, zsh e fish). `Ctrl+C` é ignorado.
-- **Tasks:** qualquer task que falhe.
-- **Debug:** exceções e programas que terminam com código de erro.
+- **Integrated terminal:** commands that exit with a non-zero exit code (requires VS Code’s *shell integration*, which is enabled by default for bash, zsh, and fish). `Ctrl+C` is ignored.
+- **Tasks:** any task that fails.
+- **Debug:** exceptions and programs that terminate with an error code.
 
-> Usa o Code Runner? Ative `code-runner.runInTerminal` para que ela perceba os erros.
+> Do you use Code Runner? Enable `code-runner.runInTerminal` so that it can detect errors.
 
-## 📄 Licença
+## License
 
 [MIT](LICENSE)

@@ -35,7 +35,7 @@ class FadaProvider {
       cor: cfg.get('cor', 'azul'),
       tamanho: cfg.get('tamanho', 3),
       dicas: cfg.get('dicas', true),
-      frase: cfg.get('frase', 'Ei! Escuta aqui!'),
+      frase: cfg.get('frase', 'Hey! Listen!'),
     });
   }
 
@@ -98,7 +98,7 @@ function activate(context) {
     }),
 
     vscode.commands.registerCommand('fadaPet.trocarCor', async () => {
-      const cor = await vscode.window.showQuickPick(CORES, { placeHolder: 'Escolha a cor da fada' });
+      const cor = await vscode.window.showQuickPick(CORES, { placeHolder: 'Choose the fairy colour' });
       if (cor) {
         await vscode.workspace.getConfiguration('fadaPet').update('cor', cor, vscode.ConfigurationTarget.Global);
       }
@@ -127,14 +127,14 @@ function activate(context) {
           if (code === undefined || code === 0 || code === 130) return;
           const cmd = (e.execution.commandLine && e.execution.commandLine.value) || 'comando';
           const curto = cmd.length > 30 ? cmd.slice(0, 29) + '…' : cmd;
-          provider.post({ type: 'runError', text: `Deu erro! 😱\n${curto} (código ${code})` });
+          provider.post({ type: 'runError', text: `Yikes - a run error!\n${curto} (code ${code})` });
         })]
       : []),
 
     // Erros de execução: tasks
     vscode.tasks.onDidEndTaskProcess((e) => {
       if (e.exitCode !== undefined && e.exitCode !== 0) {
-        provider.post({ type: 'runError', text: `A task "${e.execution.task.name}" falhou! 😱 (código ${e.exitCode})` });
+        provider.post({ type: 'runError', text: `"${e.execution.task.name}" \nIt failed! (code ${e.exitCode})` });
       }
     }),
 
@@ -145,9 +145,9 @@ function activate(context) {
           onDidSendMessage(m) {
             if (m.type !== 'event') return;
             if (m.event === 'stopped' && m.body && m.body.reason === 'exception') {
-              provider.post({ type: 'runError', text: 'Exceção! O programa parou com erro 😱' });
+              provider.post({ type: 'runError', text: 'Exception! The program stopped with an error!'});
             } else if (m.event === 'exited' && m.body && m.body.exitCode) {
-              provider.post({ type: 'runError', text: `O programa terminou com erro! 😱 (código ${m.body.exitCode})` });
+              provider.post({ type: 'runError', text: `The program ended with an error! (code ${m.body.exitCode})` });
             }
           },
         };

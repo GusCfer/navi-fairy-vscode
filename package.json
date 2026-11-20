@@ -1,18 +1,18 @@
 {
-  "name": "navi-pet",
+  "name": "navi-pet-english",
   "displayName": "Navi Fairy Pet",
-  "description": "Uma fadinha de pixel art que voa no Explorer como um pet e reage ao seu código.",
+  "description": "A pixel-art fairy that flies around the Explorer like a pet and reacts to your code.",
   "version": "1.0.1",
   "publisher": "guscfer",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/GusCfer/navi-fairy-vscode.git"
+    "url": "https://github.com/melon-juice/navi-fairy-vscode-english"
   },
   "bugs": {
-    "url": "https://github.com/GusCfer/navi-fairy-vscode/issues"
+    "url": "https://github.com/GusCfer/navi-fairy-vscode-english/issues"
   },
-  "homepage": "https://github.com/GusCfer/navi-fairy-vscode#readme",
+  "homepage": "https://github.com/GusCfer/navi-fairy-vscode-english#readme",
   "engines": {
     "vscode": "^1.93.0"
   },
@@ -29,18 +29,19 @@
         {
           "type": "webview",
           "id": "fadaPet.view",
-          "name": "Navi"
+          "name": "Navi",
+          "icon": "icon.png"
         }
       ]
     },
     "commands": [
       {
         "command": "fadaPet.chamar",
-        "title": "Navi: Chamar a fada"
+        "title": "Navi: Call the fairy"
       },
       {
         "command": "fadaPet.trocarCor",
-        "title": "Navi: Trocar cor"
+        "title": "Navi: Change colour"
       }
     ],
     "configuration": {
@@ -56,7 +57,7 @@
             "roxa"
           ],
           "default": "azul",
-          "description": "Cor do brilho da fada."
+          "description": "Fairy shimmer colour"
         },
         "fadaPet.tamanho": {
           "type": "number",
@@ -67,22 +68,22 @@
             5
           ],
           "default": 3,
-          "description": "Tamanho de cada pixel (escala do pixel art)."
+          "description": "Size of each pixel (pixel art scale)"
         },
         "fadaPet.frase": {
           "type": "string",
-          "default": "Ei! Escuta aqui!",
-          "description": "O que a fada fala quando você clica nela e de tempo em tempo."
+          "default": "Hey! Listen!",
+          "description": "What Navi says when you click on her and from time to time"
         },
         "fadaPet.reagirErros": {
           "type": "boolean",
           "default": true,
-          "description": "A fada avisa quando o arquivo aberto tem erros."
+          "description": "The fairy notifies you when the file open in editor contains errors"
         },
         "fadaPet.dicas": {
           "type": "boolean",
           "default": true,
-          "description": "A fada fala umas frases aleatórias de vez em quando."
+          "description": "The fairy says random phrases from time to time"
         }
       }
     }
