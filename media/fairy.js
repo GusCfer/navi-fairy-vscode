@@ -25,7 +25,9 @@
     '*:･ﾟ✧', // sparkles
     '✶.*✷', // more sparkles
     '♬♩ ♬♩ ~', // song of storms
-    '♩♩𝅝 ♬♩♩𝅝 ~' // zelda's lullaby
+    '♬♩♬♩ ♬♬♩♬ ♬♩.♪ ♬♩ ~', // saria's song (lost woods)
+    '♩♩ ♩♬ ♩♩ ♩. ~', // zelda's lullaby
+    '♬♬ ♬♬ ♬♬ ♬♬ ~' // great fairy fountain
   ];
 
   let scale = 3;
