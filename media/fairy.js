@@ -7,18 +7,25 @@
   const bubble = document.getElementById('bubble');
 
   const FRASES = [
-    'Ei! Olha aqui! ✨',
-    'Bora codar!',
-    'Já fez commit hoje?',
-    'Beba água! 💧',
-    'Esse código tá ficando lindo ✨',
-    'Hmm... e os testes? 🤔',
-    'Descansa os olhos um pouquinho 👀',
-    'Respira fundo. Você consegue!',
-    'Lembrou de dar git pull?',
-    'console.log não é debugger, hein 😅',
-    'Que tal uma pausa pro café? ☕',
-    'Nomes de variável bons salvam vidas!',
+    "Let's code!",
+    "You're doing great!",
+    'Have you made any new commits today?',
+    'Drink some water!',
+    'This code is looking great!',
+    'Hmm... are you gonna test that?',
+    "It's good to let your eyes rest every so often!",
+    "Breathe. You've totally got this",
+    'Is it time for a dry run?',
+    'Make sure to commit often',
+    'Take your time ❤',
+    'Is it time for a tea break?',
+    'Tidy code saves lives',
+    'ヾ(^▽^)', // little wave
+    '(★.★)!', // curious!
+    '*:･ﾟ✧', // sparkles
+    '✶.*✷', // more sparkles
+    '♬♩ ♬♩ ~', // song of storms
+    '♩♩𝅝 ♬♩♩𝅝 ~' // zelda's lullaby
   ];
 
   let scale = 3;
@@ -43,7 +50,7 @@
   let lastActivity = performance.now();
   let bubbleTimer = 0;
   let nextTip = performance.now() + rand(20000, 45000);
-  let frase = 'Ei! Escuta aqui!';
+  let frase = 'Hey! Listen!';
 
   function rand(a, b) { return a + Math.random() * (b - a); }
   function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
@@ -97,7 +104,7 @@
     if (fairy.mode === 'sleep') {
       fairy.mode = 'wander';
       fairy.vy = -1.5;
-      say('Hã?! Tô acordada! 😳', 2000);
+      say('*Yawn*', 2000);
       newTarget();
     }
   }
@@ -163,10 +170,10 @@
         if (m.tamanho !== scale) { scale = m.tamanho; resize(); }
         break;
       case 'hello':
-        wake(); spin(); say('Oi! Tô aqui! ✨');
+        wake(); spin(); say("Hi! I'm here!");
         break;
       case 'save':
-        wake(); spin(800); say(pick(['Salvo! ✨', 'Arquivo salvo! 💾', 'Prontinho, salvo!']), 2000);
+        wake(); spin(800); say(pick(['Saved!', "Your file's safe!", 'All set!']), 2000);
         break;
       case 'runError': {
         wake();
@@ -176,7 +183,7 @@
         fairy.vx = 0; fairy.vy = 0;
         setPalette('erro');
         for (let i = 0; i < 18; i++) burst(fairy.x, fairy.y);
-        say(m.text || 'Deu erro! 😱', 4500);
+        say(m.text || 'Whoops!', 4500);
         break;
       }
       case 'activity':
@@ -187,11 +194,11 @@
           diagAlert = true;
           if (!m.silent) {
             wake();
-            say(`Cuidado! ${m.errors} erro${m.errors > 1 ? 's' : ''} em ${m.file} ⚠️`, 4000);
+            say(`Watch out! ${m.errors} error${m.errors > 1 ? 's' : ''} in ${m.file}`, 4000);
           }
         } else {
           diagAlert = false;
-          if (m.fixed) { wake(); spin(); say('Erros resolvidos! 🎉'); }
+          if (m.fixed) { wake(); spin(); say('Phew! That was close'); }
         }
         break;
     }
@@ -319,8 +326,9 @@
     }
 
     if (dicas && fairy.mode !== 'sleep' && now > nextTip) {
-      say(frase);
-      nextTip = now + rand(45000, 120000);
+      const randomPhrase = FRASES[Math.floor(Math.random() * FRASES.length)];
+      say(randomPhrase);
+      nextTip = now + rand(800000, 800000); // updates every 3 mins
     }
 
     let tx = fairy.tx, ty = fairy.ty;
@@ -369,6 +377,7 @@
       p.x += p.vx; p.y += p.vy; p.vx *= 0.97; p.vy *= 0.97; p.life--;
     }
     particles = particles.filter((p) => p.life > 0);
+
   }
 
   let last = 0;
