@@ -1,9 +1,11 @@
 {
   "name": "navi-pet-english",
   "displayName": "Navi Fairy Pet",
-  "description": "A pixel-art fairy that flies around the Explorer like a pet and reacts to your code.",
+  "description": "This extension lets Navi the fairy - from Legend of Zelda - fly around and react to your code! She'll respond to your interactions as you code; her comments are supportive, helpful and -sometimes- a little sassy!",
   "version": "1.0.1",
-  "publisher": "guscfer",
+  "author": "melon-juice",
+  "publisher": "melon-juice",
+  "contributors": ["guscfer"],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -50,14 +52,14 @@
         "fadaPet.cor": {
           "type": "string",
           "enum": [
-            "azul",
-            "verde",
-            "rosa",
-            "amarela",
-            "roxa"
+            "blue",
+            "green",
+            "pink",
+            "yellow",
+            "purple"
           ],
-          "default": "azul",
-          "description": "Fairy shimmer colour"
+          "default": "blue",
+          "description": "Sparkle colour"
         },
         "fadaPet.tamanho": {
           "type": "number",
@@ -92,7 +94,10 @@
   "keywords": [
     "pet",
     "fairy",
-    "fada",
+    "navi",
+    "zelda",
+    "cute",
+    "whimsy",
     "pixel art",
     "companion"
   ]
