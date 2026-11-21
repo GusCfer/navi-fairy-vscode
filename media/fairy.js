@@ -32,18 +32,18 @@
 
   let scale = 3;
   let W = 0, H = 0; // resolução lógica (em "pixels" de pixel art)
-  let paletteName = 'azul';
+  let paletteName = 'blue';
   let diagAlert = false; // arquivo aberto com erros
   let errorUntil = 0;    // vermelha até esse instante
   let shakeUntil = 0;    // balançando até esse instante
-  let baseColor = 'azul';
+  let baseColor = 'blue';
   let dicas = true;
 
   const fairy = {
     x: 40, y: 30, vx: 0, vy: 0,
     tx: 40, ty: 30,
     nextTarget: 0,
-    mode: 'wander', // wander | follow | spin | sleep
+    mode: 'wander', // wander / follow / spin / sleep
     spinT: 0, spinCx: 0, spinCy: 0,
   };
   const mouse = { x: 0, y: 0, inside: false, lastMove: 0 };
@@ -106,7 +106,7 @@
     if (fairy.mode === 'sleep') {
       fairy.mode = 'wander';
       fairy.vy = -1.5;
-      say('*Yawn*', 2000);
+      say('*yawn*', 2000);
       newTarget();
     }
   }
@@ -119,10 +119,11 @@
   }
   function setPalette(name) {
     paletteName = name;
-    const c = PALETTES[name].glow;
+    // changed to prevent "TypeError: Cannot read properties of undefined (reading 'glow')"
+    const palObj = PALETTES[name] || PALETTES['blue'] || Object.values(PALETTES)[0];
+    const c = palObj ? palObj.glow : [100, 180, 255]; 
     document.body.style.setProperty('--fada-cor', `rgb(${c[0]},${c[1]},${c[2]})`);
   }
-
   // ---------- partículas ----------
   function trail() {
     particles.push({
@@ -166,13 +167,14 @@
     const m = ev.data;
     switch (m.type) {
       case 'config':
-        baseColor = m.cor in PALETTES ? m.cor : 'azul';
+        baseColor = m.cor in PALETTES ? m.cor : 'blue';
+        setPalette(baseColor);
         dicas = m.dicas;
         if (m.frase && m.frase.trim()) frase = m.frase.trim();
         if (m.tamanho !== scale) { scale = m.tamanho; resize(); }
         break;
       case 'hello':
-        wake(); spin(); say("Hi! I'm here!");
+        wake(); spin(); say("Hi! I'm Navi!");
         break;
       case 'save':
         wake(); spin(800); say(pick(['Saved!', "Your file's safe!", 'All set!']), 2000);
@@ -249,8 +251,9 @@
     ctx.clearRect(0, 0, W, H);
     const wanted = now < errorUntil ? 'erro' : diagAlert ? 'alerta' : baseColor;
     if (wanted !== paletteName) setPalette(wanted);
-    const pal = PALETTES[paletteName];
-    const rgb = pal.glow;
+    // preventing crash if palette is missing
+    const pal = PALETTES[paletteName] || PALETTES['blue'] || Object.values(PALETTES)[0]; 
+    const rgb = pal ? pal.glow : [85, 200, 255];
     const sleeping = fairy.mode === 'sleep';
 
     // partículas
@@ -330,7 +333,7 @@
     if (dicas && fairy.mode !== 'sleep' && now > nextTip) {
       const randomPhrase = FRASES[Math.floor(Math.random() * FRASES.length)];
       say(randomPhrase);
-      nextTip = now + rand(800000, 800000); // updates every 3 mins
+      nextTip = now + rand(480000, 480000); // updates every 8 mins
     }
 
     let tx = fairy.tx, ty = fairy.ty;
@@ -394,7 +397,7 @@
     requestAnimationFrame(loop);
   }
 
-  setPalette('azul');
+  //setPalette('blue');
   resize();
   requestAnimationFrame(loop);
   vscode.postMessage({ type: 'ready' });

@@ -1,6 +1,6 @@
 const vscode = require('vscode');
 
-const CORES = ['azul', 'verde', 'rosa', 'amarela', 'roxa'];
+const CORES = ['blue', 'green', 'pink', 'yellow', 'purple'];
 
 class FadaProvider {
   constructor(context) {
@@ -32,7 +32,7 @@ class FadaProvider {
     const cfg = vscode.workspace.getConfiguration('fadaPet');
     this.post({
       type: 'config',
-      cor: cfg.get('cor', 'azul'),
+      cor: cfg.get('cor', 'blue'),
       tamanho: cfg.get('tamanho', 3),
       dicas: cfg.get('dicas', true),
       frase: cfg.get('frase', 'Hey! Listen!'),

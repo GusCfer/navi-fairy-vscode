@@ -1,78 +1,96 @@
 <p align="center">
   <img src="icon.png" width="96" alt="Navi">
 </p>
+<br>
+<h1 align="center">✷*.✶ Navi VS Code Pet ✶.*✷</h1>
 
-<h1 align="center">Navi</h1>
-
-<p align="center">
-  A little pixel-art fairy that lives in the VS Code <b>Explorer</b>, right below your files. She interacts with you, and reacts to changes you make to your code in real time.
+<p>
+  Navi is a little pixel-art fairy that lives in the VS Code Explorer, right below your files. She reacts to changes you make to your code in real time - providing useful comments and insights. Read below the other things she can do!
 </p>
+
+> This repository was forked from [the Portuguese (Brazil) version created by GusCfer](https://github.com/GusCfer/navi-fairy-vscode). Navi's dialogue and setting headers were translated to English (UK), with a few added features. To see exactly what changed, please view the commit history.
+
+<br>
 
 ![Demo: Navi flying, talking, and reacting to an error](https://raw.githubusercontent.com/GusCfer/navi-fairy-vscode/main/docs/navi.gif)
 
-## What Navi Does
+<br>
 
-| | |
+## What Navi gets up to as you code!
+| Feature | Description |
 |---|---|
-| **Flies around** | Wanders around the panel with flapping wings, a pulsing glow and a trail of sparkles |
+| **Flies around** | Wanders around the panel with animated flapping wings, a pulsing glow and a trail of sparkles |
 | **Interacts with the mouse** | Orbits your cursor; click on her to hear what she has to say; click elsewhere and she flies over to it |
 | **Celebrates when you save** | Does a little spin and lets you know the file has been saved successfully |
-| **Warns about errors in the file** | Turns orange when the open file has errors and celebrates when you fix them |
-| **Reacts to runtime errors** | Turns red and moves around rapidly when a terminal command, task or debug session ends with an error |
+| **Warns you about errors in the file** | Turns orange when the open file has errors, and celebrates when you fix them |
+| **Reacts to runtime errors\*** | Turns red and moves around rapidly when a terminal command, task or debug session ends with an error |
+| **Chats with you** | Navi will say random phrases to you at set time intervals. Sometimes helpful, sometimes cheeky! |
 | **Sleeps** | After 2 minutes of inactivity, she lands and goes to sleep. Type or click to wake her up |
 
-## Installation - Portuguese Version
-#### Installation for the English version is not yet available
+<br>
 
-### Via the VS Code Marketplace (currently globally disabled)
+### Recent Feature: Legend of Zelda songs!
+As well as providing helpful comments and reminders, Navi 'hums' familiar tunes from the Legend of Zelda franchise (denoted by Unicode musical notes). How many do you recognise?
+- ♬♩ ♬♩ ~
+- ♬♩♬♩ ♬♬♩♬ ♬♩.♪ ♬♩ ~
+- ♩♩ ♩♬ ♩♩ ♩. ~
+- ♬♬ ♬♬ ♬♬ ♬♬ ~
 
-1. Open the **Extensions** tab in VS Code (`Ctrl + Shift + X`)
-2. Search for **Navi Fairy Pet**
-3. Click **Install**
+> Answers are in the source code `media/fairy.js` if you're curious :)
 
-Or, install it directly from the Visual Studio Marketplace [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=guscfer.navi-pet), or via the command line:
+<br>
 
-```bash
-code --install-extension guscfer.navi-pet
-```
+## Installation - English Version
 
 ### Manual Installation
 
-Download the `.vsix` from [Releases](https://github.com/GusCfer/navi-fairy-vscode/releases) or directly clone the source code:
+Currently, the best way to install the English extension is to directly clone the source code from your computer terminal, then install it into VS Code:
+> prerequisite: node.js (for npx), which you can install [here](https://nodejs.org/en/download).
 
 ```bash
-git clone https://github.com/GusCfer/navi-fairy-vscode.git
-cd navi-fairy-vscode
+git clone https://github.com/melon-juice/navi-fairy-vscode-english
+cd navi-fairy-vscode-english
 npx @vscode/vsce package
-code --install-extension navi-pet-*.vsix
+code --install-extension .\navi-pet-1.0.1.vsix
 ```
 
-Next, open **Explorer** and expand the **Navi** section.
+Once installed successfully, open VS Code's **Explorer** tab and expand the **Navi** section. You may need to refresh VS Code to see the changes (`Ctrl + Shift + P` > 'Developer: Reload Window').
+
+You can [contact me](elkhatib.hajar.y@gmail.com)  for troubleshooting help.
+
+<br>
 
 ## Commands
+Below are two commands you can execute by pressing `Ctrl + Shift + P` within VS Code and typing into the bar at the top of the page.
 
-| Command | What it does |
+| Command | Description |
 |---|---|
-| `Navi: Call the fairy` | Opens the panel and the fairy says hello |
-| `Navi: Change color` | Selects the color of the glow |
+| `Navi: Call the fairy` | Opens the panel, Navi greets you |
+| `Navi: Change colour` | Select Navi's glow colour |
+
+<br>
 
 ## Settings
+Customise Navi's settings in {CHECK BROWSER!unfinished} and recompile (following the same steps used to install) to see your changes.
 
 | Setting | Default | Description |
 |---|---|---|
-| `fadaPet.cor` | `azul` | Glow color: `azul`, `verde`, `rosa`, `amarela`, `roxa` |
+| `fadaPet.cor` | `blue` | Glow colour options: `blue`, `green`, `pink`, `yellow`, `purple` |
 | `fadaPet.tamanho` | `3` | Pixel art scale (2 to 5) |
-| `fadaPet.frase` | `Hey! Listen!` | What it says when clicked or periodically |
-| `fadaPet.reagirErros` | `true` | Alerts you when the open file contains errors |
+| `fadaPet.frase` | `Hey! Listen!` | What Navi says when clicked |
+| `fadaPet.reagirErros` | `true` | Navi alerts you if the open file contains errors |
 | `fadaPet.dicas` | `true` | Speaks spontaneously from time to time |
 
-## Detection of runtime errors
+<br>
 
-- **Integrated terminal:** commands that exit with a non-zero exit code (requires VS Code’s *shell integration*, which is enabled by default for bash, zsh, and fish). `Ctrl+C` is ignored.
+## *Detection of runtime errors
+Navi turns red when she detects the following:
+
+- **Integrated terminal:** commands that exit with a non-zero exit code (requires VS Code’s *shell integration*, which is enabled by default for bash, zsh, and fish). Keyboard interrupts (`Ctrl + C`) are ignored.
 - **Tasks:** any task that fails.
 - **Debug:** exceptions and programs that terminate with an error code.
 
-> Do you use Code Runner? Enable `code-runner.runInTerminal` so that it can detect errors.
+> Do you use Code Runner? Enable `code-runner.runInTerminal` so that Navi can detect errors.
 
 ## License
 
