@@ -12,11 +12,10 @@
 
 <br>
 
-<center>
+<div style="text-align: center">
 
   ![Demo: Navi flying, talking, and reacting to an error, portuguese (BR) version](https://raw.githubusercontent.com/GusCfer/navi-fairy-vscode/main/docs/navi.gif)
-
-</center>
+</div>
 
 <br>
 
