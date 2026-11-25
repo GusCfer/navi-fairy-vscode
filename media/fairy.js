@@ -53,7 +53,7 @@
   let tick = 0;
   let lastActivity = performance.now();
   let bubbleTimer = 0;
-  let nextTip = performance.now() + rand(20000, 45000);
+  let nextTip = performance.now() + rand(120000, 180000);
   let frase = 'Hey! Listen!';
 
   function rand(a, b) { return a + Math.random() * (b - a); }
@@ -342,9 +342,9 @@
     if (dicas && fairy.mode !== 'sleep' && now > nextTip) {
       const randomPhrase = FRASES[Math.floor(Math.random() * FRASES.length)];
       say(randomPhrase);
-      // intervalo aleatório entre 20 e 45 segundos
-      // random interval between 20 and 45 seconds
-      nextTip = now + rand(20000, 45000);
+      // intervalo aleatório entre 2 e 3 minutos
+      // random interval between 2 and 3 minutes
+      nextTip = now + rand(120000, 180000);
     }
 
     let tx = fairy.tx, ty = fairy.ty;
