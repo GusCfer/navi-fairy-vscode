@@ -30,7 +30,7 @@
       "explorer": [
         {
           "type": "webview",
-          "id": "fadaPet.view",
+          "id": "navi_the_fairy.view",
           "name": "Navi",
           "icon": "icon.png"
         }
@@ -38,18 +38,18 @@
     },
     "commands": [
       {
-        "command": "fadaPet.chamar",
+        "command": "navi_the_fairy.call",
         "title": "Navi: Call the fairy"
       },
       {
-        "command": "fadaPet.trocarCor",
+        "command": "navi_the_fairy.changeColour",
         "title": "Navi: Change colour"
       }
     ],
     "configuration": {
       "title": "Navi",
       "properties": {
-        "fadaPet.cor": {
+        "navi_the_fairy.colour": {
           "type": "string",
           "enum": [
             "blue",
@@ -61,7 +61,7 @@
           "default": "blue",
           "description": "Sparkle colour"
         },
-        "fadaPet.tamanho": {
+        "navi_the_fairy.size": {
           "type": "number",
           "enum": [
             2,
@@ -72,17 +72,17 @@
           "default": 3,
           "description": "Size of each pixel (pixel art scale)"
         },
-        "fadaPet.frase": {
+        "navi_the_fairy.phrase": {
           "type": "string",
           "default": "Hey! Listen!",
           "description": "What Navi says when you click on her and from time to time"
         },
-        "fadaPet.reagirErros": {
+        "navi_the_fairy.reactErrors": {
           "type": "boolean",
           "default": true,
           "description": "The fairy notifies you when the file open in editor contains errors"
         },
-        "fadaPet.dicas": {
+        "navi_the_fairy.tips": {
           "type": "boolean",
           "default": true,
           "description": "The fairy says random phrases from time to time"
@@ -97,7 +97,7 @@
     "navi",
     "zelda",
     "cute",
-    "whimsy",
+    "whimsical",
     "pixel art",
     "companion"
   ]

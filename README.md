@@ -12,7 +12,11 @@
 
 <br>
 
-![Demo: Navi flying, talking, and reacting to an error](https://raw.githubusercontent.com/GusCfer/navi-fairy-vscode/main/docs/navi.gif)
+<div style="text-align: center">
+
+  ![Demo: Navi flying, talking, and reacting to an error, portuguese (BR) version](https://raw.githubusercontent.com/GusCfer/navi-fairy-vscode/main/docs/navi.gif)
+
+</div>
 
 <br>
 
@@ -26,6 +30,17 @@
 | **Reacts to runtime errors\*** | Turns red and moves around rapidly when a terminal command, task or debug session ends with an error |
 | **Chats with you** | Navi will say random phrases to you at set time intervals. Sometimes helpful, sometimes cheeky! |
 | **Sleeps** | After 2 minutes of inactivity, she lands and goes to sleep. Type or click to wake her up |
+
+<br>
+
+## *Detection of runtime errors
+Navi turns red when she detects the following:
+
+- **Integrated terminal:** commands that exit with a non-zero exit code (requires VS Code’s *shell integration*, which is enabled by default for bash, zsh, and fish). Keyboard interrupts (`Ctrl + C`) are ignored.
+- **Tasks:** any task that fails.
+- **Debug:** exceptions and programs that terminate with an error code.
+
+> Do you use Code Runner? Enable `code-runner.runInTerminal` so that Navi can detect errors.
 
 <br>
 
@@ -56,7 +71,7 @@ code --install-extension .\navi-pet-1.0.1.vsix
 
 Once installed successfully, open VS Code's **Explorer** tab and expand the **Navi** section. You may need to refresh VS Code to see the changes (`Ctrl + Shift + P` > 'Developer: Reload Window').
 
-You can [contact me](elkhatib.hajar.y@gmail.com)  for troubleshooting help.
+You can [contact me](elkhatib.hajar.y@gmail.com) for troubleshooting help.
 
 <br>
 
@@ -71,7 +86,7 @@ Below are two commands you can execute by pressing `Ctrl + Shift + P` within VS 
 <br>
 
 ## Settings
-Customise Navi's settings in {CHECK BROWSER!unfinished} and recompile (following the same steps used to install) to see your changes.
+Customise Navi's settings by navigating to VS Code Settings (`Ctrl + ,` > Extensions > Navi).
 
 | Setting | Default | Description |
 |---|---|---|
@@ -83,14 +98,17 @@ Customise Navi's settings in {CHECK BROWSER!unfinished} and recompile (following
 
 <br>
 
-## *Detection of runtime errors
-Navi turns red when she detects the following:
+## Developers: Customisation for Forks, Branches and Clones
+Hey! Listen! If you're interested in customising the phrases that Navi says, or perhaps add an extra colour combination, edit the source code and make the extension your own! Below are some tips for compiling and refreshing the code to view changes.
+Navigate to the navi-fairy-vscode-english folder (not 'media') in your CLI. Here are commands for Windows Powershell:
+```powershell
+Remove-Item *.vsix # removes the existing executable
+npx @vscode/vsce package # recompiles
+Get-Item navi-pet-*.vsix | ForEach-Object { code --install-extension $_.Name --force } # installs the extension in VS Code
+```
+I'd love to see what features you add!
 
-- **Integrated terminal:** commands that exit with a non-zero exit code (requires VS Code’s *shell integration*, which is enabled by default for bash, zsh, and fish). Keyboard interrupts (`Ctrl + C`) are ignored.
-- **Tasks:** any task that fails.
-- **Debug:** exceptions and programs that terminate with an error code.
-
-> Do you use Code Runner? Enable `code-runner.runInTerminal` so that Navi can detect errors.
+<br>
 
 ## License
 

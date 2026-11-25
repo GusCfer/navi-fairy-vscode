@@ -29,20 +29,20 @@ class FadaProvider {
   }
 
   sendConfig() {
-    const cfg = vscode.workspace.getConfiguration('fadaPet');
+    const cfg = vscode.workspace.getConfiguration('navi_the_fairy');
     this.post({
       type: 'config',
-      cor: cfg.get('cor', 'blue'),
-      tamanho: cfg.get('tamanho', 3),
-      dicas: cfg.get('dicas', true),
-      frase: cfg.get('frase', 'Hey! Listen!'),
+      cor: cfg.get('colour', 'blue'),
+      tamanho: cfg.get('size', 3),
+      dicas: cfg.get('tips', true),
+      frase: cfg.get('phrase', 'Hey! Listen!'),
     });
   }
 
   checkDiagnostics(silent = false) {
-    const cfg = vscode.workspace.getConfiguration('fadaPet');
+    const cfg = vscode.workspace.getConfiguration('navi_the_fairy');
     const editor = vscode.window.activeTextEditor;
-    if (!cfg.get('reagirErros', true) || !editor) {
+    if (!cfg.get('reactErrors', true) || !editor) {
       this.lastErrors = 0;
       this.post({ type: 'diagnostics', errors: 0, warnings: 0, silent: true });
       return;
@@ -88,24 +88,24 @@ function activate(context) {
   const provider = new FadaProvider(context);
 
   context.subscriptions.push(
-    vscode.window.registerWebviewViewProvider('fadaPet.view', provider, {
+    vscode.window.registerWebviewViewProvider('navi_the_fairy.view', provider, {
       webviewOptions: { retainContextWhenHidden: true },
     }),
 
-    vscode.commands.registerCommand('fadaPet.chamar', async () => {
-      await vscode.commands.executeCommand('fadaPet.view.focus');
+    vscode.commands.registerCommand('navi_the_fairy.call', async () => {
+      await vscode.commands.executeCommand('navi_the_fairy.view.focus');
       setTimeout(() => provider.post({ type: 'hello' }), 300);
     }),
 
-    vscode.commands.registerCommand('fadaPet.trocarCor', async () => {
+    vscode.commands.registerCommand('navi_the_fairy.changeColour', async () => {
       const cor = await vscode.window.showQuickPick(CORES, { placeHolder: 'Choose the fairy colour' });
       if (cor) {
-        await vscode.workspace.getConfiguration('fadaPet').update('cor', cor, vscode.ConfigurationTarget.Global);
+        await vscode.workspace.getConfiguration('navi_the_fairy').update('colour', cor, vscode.ConfigurationTarget.Global);
       }
     }),
 
     vscode.workspace.onDidChangeConfiguration((e) => {
-      if (e.affectsConfiguration('fadaPet')) {
+      if (e.affectsConfiguration('navi_the_fairy')) {
         provider.sendConfig();
         provider.checkDiagnostics(true);
       }
