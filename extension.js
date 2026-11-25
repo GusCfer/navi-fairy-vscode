@@ -42,7 +42,7 @@ class FadaProvider {
   checkDiagnostics(silent = false) {
     const cfg = vscode.workspace.getConfiguration('navi_the_fairy');
     const editor = vscode.window.activeTextEditor;
-    if (!cfg.get('reactErrors', true) || !editor) {
+    if (!cfg.get('reactToErrors', true) || !editor) {
       this.lastErrors = 0;
       this.post({ type: 'diagnostics', errors: 0, warnings: 0, silent: true });
       return;
@@ -120,6 +120,7 @@ function activate(context) {
     }),
 
     // Erros de execução: terminal integrado (código de saída do comando)
+    // Execution errors: integrated terminal (command exit code)
     ...(vscode.window.onDidEndTerminalShellExecution
       ? [vscode.window.onDidEndTerminalShellExecution((e) => {
           const code = e.exitCode;
@@ -132,6 +133,7 @@ function activate(context) {
       : []),
 
     // Erros de execução: tasks
+    // Execution errors: tasks
     vscode.tasks.onDidEndTaskProcess((e) => {
       if (e.exitCode !== undefined && e.exitCode !== 0) {
         provider.post({ type: 'runError', text: `"${e.execution.task.name}" \nIt failed! (code ${e.exitCode})` });
@@ -139,6 +141,7 @@ function activate(context) {
     }),
 
     // Erros de execução: depuração (exceção ou saída com código != 0)
+    // Runtime errors: debugging (exception or exit with code != 0)
     vscode.debug.registerDebugAdapterTrackerFactory('*', {
       createDebugAdapterTracker() {
         return {

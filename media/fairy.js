@@ -20,7 +20,7 @@
     'Take your time ❤',
     'Is it time for a tea break?',
     'Tidy code saves lives',
-    'ヾ(^▽^)', // little wave
+    'ヾ(^▽^)', // little wave hello
     '(★.★)!', // curious!
     '*:･ﾟ✧', // sparkles
     '✶.*✷', // more sparkles
@@ -31,11 +31,13 @@
   ];
 
   let scale = 3;
-  let W = 0, H = 0; // resolução lógica (em "pixels" de pixel art)
+  // resolução lógica (em "pixels" de pixel art)
+  // logical resolution (in "pixels" of pixel art)
+  let W = 0, H = 0;
   let paletteName = 'blue';
-  let diagAlert = false; // arquivo aberto com erros
-  let errorUntil = 0;    // vermelha até esse instante
-  let shakeUntil = 0;    // balançando até esse instante
+  let diagAlert = false; // arquivo aberto com erros / file opened with errors
+  let errorUntil = 0;    // vermelha até esse instante / red up to this moment
+  let shakeUntil = 0;    // balançando até esse instante / swaying until this moment
   let baseColor = 'blue';
   let dicas = true;
 
@@ -57,7 +59,7 @@
   function rand(a, b) { return a + Math.random() * (b - a); }
   function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
-  // ---------- tamanho ----------
+  // ---------- tamanho / size ----------
   function resize() {
     const r = document.body.getBoundingClientRect();
     W = Math.max(20, Math.floor(r.width / scale));
@@ -78,7 +80,7 @@
     fairy.nextTarget = performance.now() + rand(2500, 6000);
   }
 
-  // ---------- balão de fala ----------
+  // ---------- balão de fala / speech bubble ----------
   function say(text, ms = 3500) {
     bubble.textContent = text;
     bubble.classList.add('show');
@@ -100,7 +102,7 @@
     bubble.style.top = top + 'px';
   }
 
-  // ---------- ações ----------
+  // ---------- ações / actions ----------
   function wake() {
     lastActivity = performance.now();
     if (fairy.mode === 'sleep') {
@@ -119,12 +121,14 @@
   }
   function setPalette(name) {
     paletteName = name;
+    // alterado para evitar "TypeError: Cannot read properties of undefined (reading 'glow')"
     // changed to prevent "TypeError: Cannot read properties of undefined (reading 'glow')"
     const palObj = PALETTES[name] || PALETTES['blue'] || Object.values(PALETTES)[0];
     const c = palObj ? palObj.glow : [100, 180, 255]; 
     document.body.style.setProperty('--fada-cor', `rgb(${c[0]},${c[1]},${c[2]})`);
   }
-  // ---------- partículas ----------
+
+  // ---------- partículas / particles ----------
   function trail() {
     particles.push({
       x: fairy.x + rand(-2, 2), y: fairy.y + rand(-2, 2),
@@ -137,7 +141,7 @@
     particles.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, life: rand(25, 45), max: 45, big: Math.random() < 0.4 });
   }
 
-  // ---------- eventos do mouse ----------
+  // ---------- eventos do mouse / mouse events ----------
   function toLogical(e) {
     const r = canvas.getBoundingClientRect();
     return { x: (e.clientX - r.left) / scale, y: (e.clientY - r.top) / scale };
@@ -162,7 +166,7 @@
     }
   });
 
-  // ---------- mensagens da extensão ----------
+  // ---------- mensagens da extensão / extension messages ----------
   window.addEventListener('message', (ev) => {
     const m = ev.data;
     switch (m.type) {
@@ -185,7 +189,7 @@
         errorUntil = now + 6000;
         shakeUntil = now + 1600;
         fairy.vx = 0; fairy.vy = 0;
-        setPalette('erro');
+        setPalette('error');
         for (let i = 0; i < 18; i++) burst(fairy.x, fairy.y);
         say(m.text || 'Whoops!', 4500);
         break;
@@ -205,10 +209,10 @@
           if (m.fixed) { wake(); spin(); say('Phew! That was close'); }
         }
         break;
-    }
+      }
   });
 
-  // ---------- desenho ----------
+  // ---------- desenho / design ----------
   function px(x, y, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x, y, 1, 1);
@@ -226,9 +230,10 @@
     }
   }
   function drawWing(frame, bx, by, colors) {
-    // esquerda
+    // esquerda / left
     drawRows(frame.rows, bx + frame.dx, by + frame.dy, colors, false);
     // direita espelhada: coluna c -> BODY_SIZE-1-(dx+c)
+    // mirrored on the right: column c -> BODY_SIZE-1-(dx+c)
     drawRows(frame.rows, bx - frame.dx, by + frame.dy, colors, true);
   }
 
@@ -239,7 +244,7 @@
         const d = Math.hypot(dx, dy);
         if (d > radius) continue;
         let a = strength * Math.pow(1 - d / radius, 1.6);
-        a = Math.round(a / 0.07) * 0.07; // degraus, estilo pixel art
+        a = Math.round(a / 0.07) * 0.07; // degraus, estilo pixel art  / steps, pixel art style
         if (a <= 0) continue;
         ctx.fillStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${a})`;
         ctx.fillRect(cx + dx, cy + dy, 1, 1);
@@ -249,14 +254,15 @@
 
   function draw(now) {
     ctx.clearRect(0, 0, W, H);
-    const wanted = now < errorUntil ? 'erro' : diagAlert ? 'alerta' : baseColor;
+    const wanted = now < errorUntil ? 'error' : diagAlert ? 'warning' : baseColor;
     if (wanted !== paletteName) setPalette(wanted);
-    // preventing crash if palette is missing
+    // evita travamento caso a paleta esteja ausente
+    // prevents crash if palette is missing
     const pal = PALETTES[paletteName] || PALETTES['blue'] || Object.values(PALETTES)[0]; 
     const rgb = pal ? pal.glow : [85, 200, 255];
     const sleeping = fairy.mode === 'sleep';
 
-    // partículas
+    // partículas / particles
     for (const p of particles) {
       const a = Math.max(0, p.life / p.max);
       const flicker = (tick + p.x * 7) % 6 < 3 ? 1 : 0.6;
@@ -275,7 +281,7 @@
     const bob = sleeping ? Math.sin(now / 900) * 0.6 : Math.sin(now / 260) * 1.6;
     let shake = 0;
     if (now < shakeUntil) {
-      const k = (shakeUntil - now) / 1600; // diminui com o tempo
+      const k = (shakeUntil - now) / 1600; // diminui com o tempo / decrease over time
       shake = (tick % 4 < 2 ? -1 : 1) * Math.ceil(3 * k);
     }
     const cx = Math.round(fairy.x) + shake;
@@ -283,11 +289,11 @@
     const half = (BODY_SIZE - 1) / 2;
     const bx = cx - half, by = cy - half;
 
-    // brilho pulsante
+    // brilho pulsante / pulsating glow
     const pulse = sleeping ? 0.5 : 1 + Math.sin(now / 180) * 0.12;
     drawGlow(cx, cy, 11 * pulse, sleeping ? 0.25 : 0.42, rgb);
 
-    // asas
+    // asas / wings
     const wingColors = {
       L: `rgba(220,245,255,${sleeping ? 0.4 : 0.85})`,
       l: `rgba(${Math.min(255, rgb[0] + 120)},${Math.min(255, rgb[1] + 60)},255,${sleeping ? 0.25 : 0.6})`,
@@ -298,7 +304,7 @@
     drawWing(LOWER[f === 2 ? 0 : 1], bx, by, wingColors);
     drawWing(UPPER[f], bx, by, wingColors);
 
-    // corpo
+    // corpo / body
     const bodyColors = sleeping ? { W: '#dfe7ee', C: pal.C, B: pal.B } : { W: pal.W, C: pal.C, B: pal.B };
     drawRows(BODY, bx, by, bodyColors, false);
 
@@ -320,20 +326,25 @@
     }
   }
 
-  // ---------- lógica ----------
+  // ---------- lógica / logic ----------
   function update(now) {
     tick++;
 
     // dormir depois de 2 minutos sem atividade
+    // sleep after 2 minutes of inactivity
     if (fairy.mode !== 'sleep' && fairy.mode !== 'spin' && now - lastActivity > 120000 && !mouse.inside) {
       fairy.mode = 'sleep';
       bubble.classList.remove('show');
     }
 
+    // se ativado, Navi diz frases aleatórias
+    // if toggled, Navi says random phrases
     if (dicas && fairy.mode !== 'sleep' && now > nextTip) {
       const randomPhrase = FRASES[Math.floor(Math.random() * FRASES.length)];
       say(randomPhrase);
-      nextTip = now + rand(480000, 480000); // updates every 8 mins
+      // intervalo aleatório entre 20 e 45 segundos
+      // random interval between 20 and 45 seconds
+      nextTip = now + rand(20000, 45000);
     }
 
     let tx = fairy.tx, ty = fairy.ty;
@@ -354,7 +365,7 @@
       ty = H - 9;
       accel = 0.002; maxSpeed = 0.3;
     } else if (mouse.inside && now - mouse.lastMove < 2000) {
-      // orbita o cursor
+      // orbita o cursor / orbits the cursor
       const a = now / 600;
       tx = mouse.x + Math.cos(a) * 12;
       ty = mouse.y + Math.sin(a) * 7;
@@ -362,7 +373,7 @@
       lastActivity = now;
     } else {
       if (now > fairy.nextTarget || Math.hypot(fairy.tx - fairy.x, fairy.ty - fairy.y) < 3) newTarget();
-      // pequenas voltinhas aleatórias
+      // pequenas voltinhas aleatórias / little random movements
       tx += Math.sin(now / 700) * 4;
       ty += Math.cos(now / 900) * 3;
     }
@@ -376,18 +387,18 @@
     fairy.x = Math.min(Math.max(fairy.x, 8), W - 8);
     fairy.y = Math.min(Math.max(fairy.y, 8), H - 6);
 
-    // rastro
+    // rastro / trail
     if (fairy.mode !== 'sleep' && (tick % 3 === 0 || sp > 1)) trail();
     for (const p of particles) {
       p.x += p.vx; p.y += p.vy; p.vx *= 0.97; p.vy *= 0.97; p.life--;
     }
     particles = particles.filter((p) => p.life > 0);
-
   }
 
   let last = 0;
   function loop(now) {
     // ~60fps fixo para animação consistente
+    // ~60fps fixed for consistent animation
     if (now - last >= 16) {
       last = now;
       update(now);
@@ -397,7 +408,6 @@
     requestAnimationFrame(loop);
   }
 
-  //setPalette('blue');
   resize();
   requestAnimationFrame(loop);
   vscode.postMessage({ type: 'ready' });

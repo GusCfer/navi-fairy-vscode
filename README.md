@@ -90,11 +90,11 @@ Customise Navi's settings by navigating to VS Code Settings (`Ctrl + ,` > Extens
 
 | Setting | Default | Description |
 |---|---|---|
-| `fadaPet.cor` | `blue` | Glow colour options: `blue`, `green`, `pink`, `yellow`, `purple` |
-| `fadaPet.tamanho` | `3` | Pixel art scale (2 to 5) |
-| `fadaPet.frase` | `Hey! Listen!` | What Navi says when clicked |
-| `fadaPet.reagirErros` | `true` | Navi alerts you if the open file contains errors |
-| `fadaPet.dicas` | `true` | Speaks spontaneously from time to time |
+| `navi_the_fairy.colour` | `blue` | Glow colour options: `blue`, `green`, `pink`, `yellow`, `purple` |
+| `navi_the_fairy.size` | `3` | Pixel art scale (2 to 5) |
+| `navi_the_fairy.phrase` | `Hey! Listen!` | What Navi says when clicked |
+| `navi_the_fairy.reactToErrors` | `true` | Navi alerts you if the open file contains errors |
+| `navi_the_fairy.tips` | `true` | Speaks spontaneously from time to time |
 
 <br>
 

@@ -77,7 +77,7 @@
           "default": "Hey! Listen!",
           "description": "What Navi says when you click on her and from time to time"
         },
-        "navi_the_fairy.reactErrors": {
+        "navi_the_fairy.reactToErrors": {
           "type": "boolean",
           "default": true,
           "description": "The fairy notifies you when the file open in editor contains errors"
