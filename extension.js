@@ -1,6 +1,6 @@
 const vscode = require('vscode');
 
-const CORES = ['azul', 'verde', 'rosa', 'amarela', 'roxa'];
+const CORES = ['blue', 'green', 'pink', 'yellow', 'purple'];
 
 class FadaProvider {
   constructor(context) {
@@ -29,20 +29,20 @@ class FadaProvider {
   }
 
   sendConfig() {
-    const cfg = vscode.workspace.getConfiguration('fadaPet');
+    const cfg = vscode.workspace.getConfiguration('navi_the_fairy');
     this.post({
       type: 'config',
-      cor: cfg.get('cor', 'azul'),
-      tamanho: cfg.get('tamanho', 3),
-      dicas: cfg.get('dicas', true),
-      frase: cfg.get('frase', 'Ei! Escuta aqui!'),
+      cor: cfg.get('colour', 'blue'),
+      tamanho: cfg.get('size', 3),
+      dicas: cfg.get('tips', true),
+      frase: cfg.get('phrase', 'Hey! Listen!'),
     });
   }
 
   checkDiagnostics(silent = false) {
-    const cfg = vscode.workspace.getConfiguration('fadaPet');
+    const cfg = vscode.workspace.getConfiguration('navi_the_fairy');
     const editor = vscode.window.activeTextEditor;
-    if (!cfg.get('reagirErros', true) || !editor) {
+    if (!cfg.get('reactToErrors', true) || !editor) {
       this.lastErrors = 0;
       this.post({ type: 'diagnostics', errors: 0, warnings: 0, silent: true });
       return;
@@ -88,24 +88,24 @@ function activate(context) {
   const provider = new FadaProvider(context);
 
   context.subscriptions.push(
-    vscode.window.registerWebviewViewProvider('fadaPet.view', provider, {
+    vscode.window.registerWebviewViewProvider('navi_the_fairy.view', provider, {
       webviewOptions: { retainContextWhenHidden: true },
     }),
 
-    vscode.commands.registerCommand('fadaPet.chamar', async () => {
-      await vscode.commands.executeCommand('fadaPet.view.focus');
+    vscode.commands.registerCommand('navi_the_fairy.call', async () => {
+      await vscode.commands.executeCommand('navi_the_fairy.view.focus');
       setTimeout(() => provider.post({ type: 'hello' }), 300);
     }),
 
-    vscode.commands.registerCommand('fadaPet.trocarCor', async () => {
-      const cor = await vscode.window.showQuickPick(CORES, { placeHolder: 'Escolha a cor da fada' });
+    vscode.commands.registerCommand('navi_the_fairy.changeColour', async () => {
+      const cor = await vscode.window.showQuickPick(CORES, { placeHolder: 'Choose the fairy colour' });
       if (cor) {
-        await vscode.workspace.getConfiguration('fadaPet').update('cor', cor, vscode.ConfigurationTarget.Global);
+        await vscode.workspace.getConfiguration('navi_the_fairy').update('colour', cor, vscode.ConfigurationTarget.Global);
       }
     }),
 
     vscode.workspace.onDidChangeConfiguration((e) => {
-      if (e.affectsConfiguration('fadaPet')) {
+      if (e.affectsConfiguration('navi_the_fairy')) {
         provider.sendConfig();
         provider.checkDiagnostics(true);
       }
@@ -120,6 +120,7 @@ function activate(context) {
     }),
 
     // Erros de execução: terminal integrado (código de saída do comando)
+    // Execution errors: integrated terminal (command exit code)
     ...(vscode.window.onDidEndTerminalShellExecution
       ? [vscode.window.onDidEndTerminalShellExecution((e) => {
           const code = e.exitCode;
@@ -127,27 +128,29 @@ function activate(context) {
           if (code === undefined || code === 0 || code === 130) return;
           const cmd = (e.execution.commandLine && e.execution.commandLine.value) || 'comando';
           const curto = cmd.length > 30 ? cmd.slice(0, 29) + '…' : cmd;
-          provider.post({ type: 'runError', text: `Deu erro! 😱\n${curto} (código ${code})` });
+          provider.post({ type: 'runError', text: `Yikes - a run error!\n${curto} (code ${code})` });
         })]
       : []),
 
     // Erros de execução: tasks
+    // Execution errors: tasks
     vscode.tasks.onDidEndTaskProcess((e) => {
       if (e.exitCode !== undefined && e.exitCode !== 0) {
-        provider.post({ type: 'runError', text: `A task "${e.execution.task.name}" falhou! 😱 (código ${e.exitCode})` });
+        provider.post({ type: 'runError', text: `"${e.execution.task.name}" \nIt failed! (code ${e.exitCode})` });
       }
     }),
 
     // Erros de execução: depuração (exceção ou saída com código != 0)
+    // Runtime errors: debugging (exception or exit with code != 0)
     vscode.debug.registerDebugAdapterTrackerFactory('*', {
       createDebugAdapterTracker() {
         return {
           onDidSendMessage(m) {
             if (m.type !== 'event') return;
             if (m.event === 'stopped' && m.body && m.body.reason === 'exception') {
-              provider.post({ type: 'runError', text: 'Exceção! O programa parou com erro 😱' });
+              provider.post({ type: 'runError', text: 'Exception! The program stopped with an error!'});
             } else if (m.event === 'exited' && m.body && m.body.exitCode) {
-              provider.post({ type: 'runError', text: `O programa terminou com erro! 😱 (código ${m.body.exitCode})` });
+              provider.post({ type: 'runError', text: `The program ended with an error! (code ${m.body.exitCode})` });
             }
           },
         };
