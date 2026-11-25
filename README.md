@@ -99,12 +99,12 @@ Customise Navi's settings by navigating to VS Code Settings (`Ctrl + ,` > Extens
 <br>
 
 ## Developers: Customisation for Forks, Branches and Clones
-Hey! Listen! If you're interested in customising the phrases that Navi says, or perhaps add an extra colour combination, edit the source code and make the extension your own! Below are some tips for compiling and refreshing the code to view changes.
-Navigate to the navi-fairy-vscode-english folder (not 'media') in your CLI. Here are commands for Windows Powershell:
+Hey! Listen! If you're interested in customising the phrases that Navi says, or perhaps add an extra colour combination, edit the source code and make the extension your own! Below is how to refreshing the code to view changes.
+Navigate to the `navi-fairy-vscode-english` folder (not `media`) in your CLI. Here are commands for Windows Powershell:
 ```powershell
-Remove-Item *.vsix # removes the existing executable
-npx @vscode/vsce package # recompiles
-Get-Item navi-pet-*.vsix | ForEach-Object { code --install-extension $_.Name --force } # installs the extension in VS Code
+Remove-Item *.vsix
+npx @vscode/vsce package # produces new .vsix file
+Get-Item navi-pet-*.vsix | ForEach-Object { code --install-extension $_.Name --force } # installs extension
 ```
 I'd love to see what features you add!
 
