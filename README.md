@@ -12,11 +12,11 @@
 
 <br>
 
-<div style="text-align: center">
+<center>
 
   ![Demo: Navi flying, talking, and reacting to an error, portuguese (BR) version](https://raw.githubusercontent.com/GusCfer/navi-fairy-vscode/main/docs/navi.gif)
 
-</div>
+</center>
 
 <br>
 
@@ -94,17 +94,24 @@ Customise Navi's settings by navigating to VS Code Settings (`Ctrl + ,` > Extens
 | `navi_the_fairy.size` | `3` | Pixel art scale (2 to 5) |
 | `navi_the_fairy.phrase` | `Hey! Listen!` | What Navi says when clicked |
 | `navi_the_fairy.reactToErrors` | `true` | Navi alerts you if the open file contains errors |
-| `navi_the_fairy.tips` | `true` | Speaks spontaneously from time to time |
+| `navi_the_fairy.tips` | `true` | Navi speaks spontaneously every 2~3 minutes |
 
 <br>
 
 ## Developers: Customisation for Forks, Branches and Clones
-Hey! Listen! If you're interested in customising the phrases that Navi says, or perhaps add an extra colour combination, edit the source code and make the extension your own! Below is how to refreshing the code to view changes.
-Navigate to the `navi-fairy-vscode-english` folder (not `media`) in your CLI. Here are commands for Windows Powershell:
+***Hey! Listen!*** If you're interested in customising the phrases that Navi says, or perhaps add an extra colour combination, edit the source code and make the extension your own! Below is how to refreshing the code to view changes.
+Navigate to the `navi-fairy-vscode-english` folder (not `media`) in your CLI.
+#### Powershell (Windows):
 ```powershell
 Remove-Item *.vsix
 npx @vscode/vsce package # produces new .vsix file
-Get-Item navi-pet-*.vsix | ForEach-Object { code --install-extension $_.Name --force } # installs extension
+Get-Item navi-pet-*.vsix | ForEach-Object { code --install-extension $_.Name --force }
+```
+#### Bash (Linux/macOS):
+``` Bash
+rm *.vsix
+npx @vscode/vsce package # produces new .vsix file
+for file in navi-pet-*.vsix; do code --install-extension "$file" --force; done   
 ```
 I'd love to see what features you add!
 
